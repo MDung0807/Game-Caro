@@ -45,9 +45,8 @@ class State:
         sn = copy.deepcopy(self)
         return sn
 
-def IsNodeEnd(s):
-    sz = s.N
-    data = s.data
+def IsNodeEnd(data, size):
+    sz = size
     if sz == 3:
         flag_win = 3
     elif sz == 10:
@@ -100,11 +99,10 @@ def IsNodeEnd(s):
                 return False
     return True
     
-def Win (s):
-    if s.data == None:
+def Win (data, size):
+    if data == None:
         return False
-    sz = s.N
-    data = s.data
+    sz = size
 
     if sz == 3:
         flag_win = 3
@@ -166,14 +164,14 @@ def CheckMyTurn (s):
     return False
 
 def Values (s, nodeIndex):
-    if Win(s):
+    if Win(s.data, s.N):
         if CheckMyTurn(s):
             return 16
         return -1
     return values[nodeIndex]
 
 def AlphaBeta (s, d, nodeIndex, a, b, mp):
-    if IsNodeEnd(s) or d == 0:
+    if IsNodeEnd(s.data, s.N) or d == 0:
         return Values(s, nodeIndex)
     sz = s.N
     if mp == True:
@@ -222,14 +220,14 @@ def Run (size, data):
                 minchild = child
     s = minchild
 
-    if Win(s):
-        # s.Print()
-        print('AI win')
-        # break
-# s.Print()
-    if IsNodeEnd(s):
-        print ('draw')
-        # break
+#     if Win(s.data, s.N):
+#         # s.Print()
+#         print('AI win')
+#         # break
+# # s.Print()
+#     if IsNodeEnd(s.data, s.N):
+#         print ('Full')
+#         # break
     return s.data
 # turn += 1
 # if __name__ == '__main__':
